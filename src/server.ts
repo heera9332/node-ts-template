@@ -9,6 +9,7 @@ import helmet from "helmet";
 import config from "@/config/index";
 import limiter from "@/middlewares/rate-limit";
 import router from "@/routes/v1";
+import { connectToDatabase, disconnectFromDatabase } from "@/lib/mongoose";
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use(helmet());
 
 (async () => {
   try {
+    await connectToDatabase();
     app.use("/api/v1", router);
 
     app.listen(config.PORT, () => {
@@ -68,6 +70,7 @@ app.use(helmet());
 
 const handleServerShutdown = async () => {
   try {
+    await disconnectFromDatabase();
     console.log("Server SHUTDOWN");
     process.exit(0);
   } catch (error) {
