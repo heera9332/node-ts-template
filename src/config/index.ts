@@ -7,7 +7,8 @@ const config = {
   MONGO_URI: process.env.MONGO_URI,
   WHITELIST_ORIGINS: [
     "http://localhost:3000"
-  ]
+  ],
+  LOG_LEVEL: process.env.LOG_LEVEL || "info"
 };
 
 export default config;

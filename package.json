@@ -25,7 +25,8 @@
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
     "mongoose": "^9.0.2",
-    "prettier": "^3.7.4"
+    "prettier": "^3.7.4",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",

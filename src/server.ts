@@ -10,6 +10,7 @@ import config from "@/config/index";
 import limiter from "@/middlewares/rate-limit";
 import router from "@/routes/v1";
 import { connectToDatabase, disconnectFromDatabase } from "@/lib/mongoose";
+import logger from "@/lib/winston";
 
 const app = express();
 
@@ -27,7 +28,7 @@ const corsOptions: CorsOptions = {
         new Error(`CORS Error: ${origin} is not allowed by CORS`),
         false,
       );
-      console.log(`CORS Error: ${origin} is not allowed by CORS`);
+      logger.info(`CORS Error: ${origin} is not allowed by CORS`);
     }
   },
 };
@@ -57,10 +58,10 @@ app.use(helmet());
     app.use("/api/v1", router);
 
     app.listen(config.PORT, () => {
-      console.log(`server is running on http://localhost:${config.PORT}`);
+      logger.info(`server is running on http://localhost:${config.PORT}`);
     });
   } catch (error) {
-    console.log("Failed to start server", error);
+    logger.info("Failed to start server", error);
 
     if (config.NODE_ENV === "production") {
       process.exit(1);
@@ -71,10 +72,10 @@ app.use(helmet());
 const handleServerShutdown = async () => {
   try {
     await disconnectFromDatabase();
-    console.log("Server SHUTDOWN");
+    logger.info("Server SHUTDOWN");
     process.exit(0);
   } catch (error) {
-    console.log("Error during server shutdown");
+    logger.info("Error during server shutdown");
   }
 };
 
