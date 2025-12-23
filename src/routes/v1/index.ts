@@ -1,4 +1,6 @@
 import { Router } from "express";
+import authRoute from "./auth";
+
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -9,5 +11,7 @@ router.get("/", (req, res) => {
     docs: "http://localhost:3000/docs",
   });
 });
+
+router.use("/auth", authRoute);
 
 export default router;
