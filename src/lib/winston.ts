@@ -52,7 +52,7 @@ const logger = winston.createLogger({
   transports,
   exitOnError: false,
   format: combine(timestamp(), errors({ stack: true }), json()),
-  silent: config.NODE_ENV === "test" // disable logging in test environment
+  silent: config.NODE_ENV === "test", // disable logging in test environment
 });
 
-export default logger;
+export { logger };

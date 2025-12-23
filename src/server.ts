@@ -10,7 +10,7 @@ import config from "@/config/index";
 import limiter from "@/middlewares/rate-limit";
 import router from "@/routes/v1";
 import { connectToDatabase, disconnectFromDatabase } from "@/lib/mongoose";
-import logger from "@/lib/winston";
+import { logger } from "@/lib/winston";
 
 const app = express();
 

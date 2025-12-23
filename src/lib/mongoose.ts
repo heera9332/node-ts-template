@@ -1,7 +1,7 @@
 import config from "@/config";
 import type { ConnectOptions } from "mongoose";
 import mongoose from "mongoose";
-import logger from "./winston";
+import { logger } from "./winston";
 
 const clientOptions: ConnectOptions = {
   dbName: "node-ts-template",
@@ -33,18 +33,18 @@ export const connectToDatabase = async (): Promise<void> => {
   }
 };
 
-export const disconnectFromDatabase = async () : Promise<void> => {
-    try {
-        await mongoose.disconnect();
-        logger.info("Disconncted from the database successfully", {
-            uri: config.MONGO_URI,
-            options: clientOptions
-        });
-    } catch (error) {
-        if( error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        logger.info("Error while disconnecting from database", error);
+export const disconnectFromDatabase = async (): Promise<void> => {
+  try {
+    await mongoose.disconnect();
+    logger.info("Disconncted from the database successfully", {
+      uri: config.MONGO_URI,
+      options: clientOptions,
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
     }
-}
+
+    logger.info("Error while disconnecting from database", error);
+  }
+};
