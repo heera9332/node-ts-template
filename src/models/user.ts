@@ -1,4 +1,7 @@
-import { Schema, model } from "mongoose";
+
+import { SaveOptions, Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
+import { CallbackWithoutResultAndOptionalError } from "mongoose";
 
 export interface IUser {
   username: string;
@@ -79,5 +82,20 @@ const userSchema = new Schema<IUser>(
   },
   { timestamps: true },
 );
+
+userSchema.pre("save", async function () {
+  // If password isn't modified, just return (this 'completes' the middleware)
+  if (!this.isModified("password")) {
+    return; 
+  }
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  } catch (error) {
+    // If you need to "pass an error" to next, just throw it
+    throw error;
+  }
+});
 
 export default model<IUser>('User', userSchema);
