@@ -98,4 +98,5 @@ userSchema.pre("save", async function () {
   }
 });
 
-export default model<IUser>('User', userSchema);
+const User =  model<IUser>('User', userSchema);
+export default User;
