@@ -19,3 +19,13 @@ export const generateRefreshToken = (userId: Types.ObjectId): string => {
     subject: "apiRefresh",
   });
 };
+
+export const verifyAccessToken = (token: string): jwt.JwtPayload => {
+  const secret = config.JWT_ACCESS_SECRET as string;
+  return jwt.verify(token, secret) as jwt.JwtPayload;
+}
+
+export const verifyRefreshToken = (token: string): jwt.JwtPayload => {
+  const secret = config.JWT_REFRESH_SECRET as string;
+  return jwt.verify(token, secret) as jwt.JwtPayload;
+}
