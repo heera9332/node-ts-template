@@ -1,7 +1,6 @@
 
 import { SaveOptions, Schema, model } from "mongoose";
-import bcrypt from "bcrypt";
-import { CallbackWithoutResultAndOptionalError } from "mongoose";
+import bcrypt from "bcrypt"; 
 
 export interface IUser {
   username: string;
@@ -16,6 +15,7 @@ export interface IUser {
     instagram?: string;
     x?: string;
     youtube?: string;
+    linkedin?: string
   };
 }
 
@@ -77,6 +77,10 @@ const userSchema = new Schema<IUser>(
       youtube: {
         type: String,
         maxlength: [100, "Youtube url must be less than 100 characters"],
+      },
+      linkedin: {
+        type: String,
+        maxlength: [100, "Linkedin url must be less than 100 characters"],
       },
     },
   },
